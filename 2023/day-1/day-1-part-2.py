@@ -2,6 +2,8 @@
 # Day 1
 # Part 2
 
+# HOW TO SOLVE - CHANGE WORD SOLUTION - JUST LOOK AT LETTERS - FIRST WORD, LAST WORD - DON'T HANDLE EDGE CASES (TOO MANY)
+
 import re
 
 # load input
@@ -13,7 +15,7 @@ data = myfile.read()
 dataLines = data.splitlines()
 
 
-regex = r"\b(one|two|three|four|five|six|seven|eight|nine)\b"
+regex = r"one|(?<=two)ne|two|three|four|five|six|seven|eight|(?<=e)ight|nine"
 
 result = 0
 
@@ -58,12 +60,15 @@ def readLine():
     # find last word
     for match in re.finditer(regex, line):
         lastWord = match.group()
-        lastWordIndex = match.start()
+        lastWordIndex = match.end()
         #print(match.span(), match.group())
         #print('lastWord, lastWordIndex :',lastWord,lastWordIndex)
     
+    #print('firstWord, firstWordIndex, lastWord, lastWordIndex :',firstWord, firstWordIndex, lastWord, lastWordIndex)
+
     wordDict = {
         'one': 1,
+        'ne': 1,
         'two': 2,
         'three': 3,
         'four': 4,
@@ -71,6 +76,7 @@ def readLine():
         'six': 6,
         'seven': 7,
         'eight': 8,
+        'ight': 8,
         'nine': 9
     }
 
@@ -97,7 +103,7 @@ def readLine():
 
     print('number for line: ',sumLine)
     result += int(sumLine)
-    print('end of line result: ',result)
+    #print('end of line result: ',result)
 
 for line in dataLines:
     readLine()
