@@ -4,7 +4,7 @@
 
 # HOW TO SOLVE - CHANGE WORD SOLUTION - JUST LOOK AT LETTERS - FIRST WORD, LAST WORD - DON'T HANDLE EDGE CASES (TOO MANY)
 
-import re
+import regex as re
 
 # load input
 #myfile = open('../input/day-1-test-2')
@@ -14,14 +14,40 @@ data = myfile.read()
 
 dataLines = data.splitlines()
 
+numbers = [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine"
+]
 
-regex = r"one|(?<=two)ne|two|three|four|five|six|seven|eight|(?<=e)ight|nine"
+regex = r"(\d|one|two|three|four|five|six|seven|eight|nine)"
 
 result = 0
 
-def readLine():
+def calibrate():
     global result
     print('line',line)
+
+    digits = re.findall(regex, line, overlapped=True)
+    first = digits[0]
+    last = digits[-1]
+
+    if len(first) > 1:
+        first = numbers.index(first) + 1
+
+    if len(last) > 1:
+        last = numbers.index(last) + 1
+
+    sumLines = f"{first}{last}"
+    result += int(sumLines)
+
+    """
     firstDigitIndex = 9999999
     lastDigitIndex = -9999999
     firstWordIndex = 999999
@@ -58,7 +84,7 @@ def readLine():
         break
 
     # find last word
-    for match in re.finditer(regex, line):
+    for match in re.finditer(regex, line, overlapped=True):
         lastWord = match.group()
         lastWordIndex = match.end()
         #print(match.span(), match.group())
@@ -103,10 +129,12 @@ def readLine():
 
     print('number for line: ',sumLine)
     result += int(sumLine)
+    """
+
     #print('end of line result: ',result)
 
 for line in dataLines:
-    readLine()
+    calibrate()
 
 print('final result: ',result)
 
