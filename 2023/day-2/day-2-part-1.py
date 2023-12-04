@@ -3,6 +3,7 @@
 # Part 1
 
 import re
+import numpy as np
 
 #load input
 #myfile = open('../input/day-2-input')
@@ -23,28 +24,31 @@ maxNumber = 14
 numberRegex = r"\d+"
 result = 0
 
-#get number
+#get number - this returns the number from the line
 def getNumber(x):
     x.split(' ',1)
 
 #main function
 def possibleGames():
     global result 
-    print('line', line)
+    #print('line', line)
 
     # find maximum number - if larger than 14 throw out line
     numbers = re.findall(numberRegex, line)
-    print('numbers',numbers)
-    #convert to int
-    for x in numbers:
-        int(x)
-    if (int(max(numbers)) > maxNumber):
+    numbers = np.array(numbers,dtype=int)
+    #print('numbers',numbers)
+    if (max(numbers) > maxNumber):
         print('number too large')
-        return
-    
+        return False
+    else:
+        print('valid game')
+        return True
 
-for line in dataLines:
-    possibleGames()
+for index, line in enumerate(dataLines):
+    realIndex = index + 1
+    print('Game: :', realIndex)
+    if possibleGames() == True:
+        result += realIndex
 
 print('final result: ',result)
 
