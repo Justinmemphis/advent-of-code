@@ -10,18 +10,16 @@ import re
 import numpy as np
 
 #load input
-#myfile = open('../input/day-2-input')
-myfile = open('../input/day-2-test-1')
+myfile = open('../input/day-2-input')
+#myfile = open('../input/day-2-test-1')
 data = myfile.read()
 
 dataLines = data.splitlines()
 
 #valid game conditions
-validGame = {
-        "red": 12,
-        "green": 13,
-        "blue": 14
-};
+validRed = 12
+validGreen = 13
+validBlue = 14
 validMaxNumber = 14
 
 #global variables
@@ -39,27 +37,37 @@ def findColor(line):
     for x in line:
         if 'red' in x:
             y = int(getNumber(x))
-            print('red number: ', y)
+            #print('red number: ', y)
             if y > redMax:
                 redMax = y
         elif 'blue' in x:
             y = int(getNumber(x))
-            print('blue number: ', y)
+            #print('blue number: ', y)
             if y > blueMax:
                 blueMax = y
         elif 'green' in x:
             y = int(getNumber(x))
-            print('green number: ', y)
+            #print('green number: ', y)
             if y > greenMax:
                 greenMax = y
-    print('redMax, blueMax, greenMax: ', redMax, blueMax, greenMax)
+    #print('redMax, blueMax, greenMax: ', redMax, blueMax, greenMax)
+    if redMax > validRed or blueMax > validBlue or greenMax > validGreen:
+        redMax = 0
+        blueMax = 0
+        greenMax = 0
+        return False
+    else:
+        return True
 
 def stripColor(line):
     colors = re.split('[:,;]+',line)
     colors.pop(0) #remove the game line
     colors = [s.lstrip() for s in colors]
-    print('colors: ', colors)
-    print('findColor: ', findColor(colors))
+    #print('colors: ', colors)
+    if findColor(colors):
+        return True
+    else:
+        return False
 
 #main function
 def possibleGames(line):
