@@ -30,13 +30,36 @@ result = 0
 
 #get number - this returns the number from the line
 def getNumber(phrase):
-    phrase.split(' ',1)
+    return re.findall(numberRegex, phrase)[0]
+
+def findColor(line):
+    redMax = 0
+    blueMax = 0
+    greenMax = 0
+    for x in line:
+        if 'red' in x:
+            y = int(getNumber(x))
+            print('red number: ', y)
+            if y > redMax:
+                redMax = y
+        elif 'blue' in x:
+            y = int(getNumber(x))
+            print('blue number: ', y)
+            if y > blueMax:
+                blueMax = y
+        elif 'green' in x:
+            y = int(getNumber(x))
+            print('green number: ', y)
+            if y > greenMax:
+                greenMax = y
+    print('redMax, blueMax, greenMax: ', redMax, blueMax, greenMax)
 
 def stripColor(line):
     colors = re.split('[:,;]+',line)
-    colors.pop(0)
+    colors.pop(0) #remove the game line
     colors = [s.lstrip() for s in colors]
-    print('colors: ',colors)
+    print('colors: ', colors)
+    print('findColor: ', findColor(colors))
 
 #main function
 def possibleGames(line):
