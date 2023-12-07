@@ -5,6 +5,8 @@
 # thoughts:
 # extract all red values from game - test against red in valid game conditions, etc.
 # split line by , and ; (actually semi colons don't matter
+#
+# 1st attempt - 2681 is too high
 
 import re
 import numpy as np
@@ -55,15 +57,17 @@ def findColor(line):
         redMax = 0
         blueMax = 0
         greenMax = 0
+        print('local max too high')
         return False
     else:
+        print('valid valid game')
         return True
 
 def stripColor(line):
     colors = re.split('[:,;]+',line)
     colors.pop(0) #remove the game line
     colors = [s.lstrip() for s in colors]
-    #print('colors: ', colors)
+    print('colors: ', colors)
     if findColor(colors):
         return True
     else:
@@ -76,6 +80,7 @@ def possibleGames(line):
 
     # find maximum number - if larger than 14 throw out line
     numbers = re.findall(numberRegex, line)
+    numbers.pop(0) #remove the game line
     numbers = np.array(numbers,dtype=int)
     #print('numbers',numbers)
     if (max(numbers) > validMaxNumber):
@@ -83,14 +88,17 @@ def possibleGames(line):
         return False
     else:
         print('valid game')
-        stripColor(line)
-        return True
+        if stripColor(line):
+            return True
+        else:
+            return False
 
 for index, line in enumerate(dataLines):
     realIndex = index + 1
-    print('Game: :', realIndex)
-    if possibleGames(line) == True:
+    print('Game: ', realIndex)
+    if possibleGames(line):
         result += realIndex
+        print('new result: ', result)
 
 print('final result: ',result)
 
