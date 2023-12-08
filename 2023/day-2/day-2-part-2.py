@@ -23,38 +23,39 @@ def getNumber(phrase):
     return re.findall(numberRegex, phrase)[0]
 
 def findMin(line):
-    redMin = 0
-    blueMin = 0
-    greenMin = 0
-    for x in line:
-        if 'red' in x:
-            y = int(getNumber(x))
-            #print('red number: ', y)
-            if y < redMin:
-                redMin = y
-        elif 'blue' in x:
-            y = int(getNumber(x))
-            #print('blue number: ', y)
-            if y < blueMin:
-                blueMin = y
-        elif 'green' in x:
-            y = int(getNumber(x))
-            #print('green number: ', y)
-            if y < greenMin:
-                greenMin = y
-    result += redMin * blueMin * greenMin
-
-def stripColor(line):
     colors = re.split('[:,;]+',line)
     colors.pop(0) #remove the game line
     colors = [s.lstrip() for s in colors]
     print('colors: ', colors)
-    findMin(colors)
 
+    redMin = None
+    blueMin = None
+    greenMin = None
+    for x in line:
+        if 'red' in x:
+            y = int(getNumber(x))
+            if y < redMin:
+                redMin = y
+        elif 'blue' in x:
+            y = int(getNumber(x))
+            if y < blueMin:
+                blueMin = y
+        elif 'green' in x:
+            y = int(getNumber(x))
+            if y < greenMin:
+                greenMin = y
+    print('redMin, blueMin, greenMin',redMin,blueMin, greenMin)
+    if redMin == None:
+        redMin = 1
+    if blueMin == None:
+        blueMin = 1
+    if greenMin == None:
+        greenMin = 1
+    return redMin * blueMin * greenMin
 
 for line in dataLines:
-    global result
-    stripColor(line)
+    product = findMin(line)
+    result += product
 
 print('final result: ',result)
 
