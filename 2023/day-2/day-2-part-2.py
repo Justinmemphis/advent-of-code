@@ -3,13 +3,14 @@
 # Part 2
 
 # thoughts:
-# just find min numbers and then multiple redMin * blueMin * greenMin and add to result
+# just find max numbers and then multiple redMax * blueMax * greenMax and add to result
+#
 
 import re
 
 #load input
-#myfile = open('../input/day-2-input')
-myfile = open('../input/day-2-test-1')
+myfile = open('../input/day-2-input')
+#yfile = open('../input/day-2-test-1')
 data = myfile.read()
 
 dataLines = data.splitlines()
@@ -22,39 +23,54 @@ result = 0
 def getNumber(phrase):
     return re.findall(numberRegex, phrase)[0]
 
-def findMin(line):
+def findMax(line):
     colors = re.split('[:,;]+',line)
     colors.pop(0) #remove the game line
     colors = [s.lstrip() for s in colors]
     print('colors: ', colors)
 
-    redMin = None
-    blueMin = None
-    greenMin = None
-    for x in line:
+    redMax = None
+    blueMax = None
+    greenMax = None
+    for x in colors:
+        print('this is x: ',x)
         if 'red' in x:
             y = int(getNumber(x))
-            if y < redMin:
-                redMin = y
+            if redMax == None:
+                redMax = y
+            elif y > redMax:
+                redMax = y
         elif 'blue' in x:
             y = int(getNumber(x))
-            if y < blueMin:
-                blueMin = y
+            if blueMax == None:
+                blueMax = y
+            elif y > blueMax:
+                blueMax = y
         elif 'green' in x:
             y = int(getNumber(x))
-            if y < greenMin:
-                greenMin = y
-    print('redMin, blueMin, greenMin',redMin,blueMin, greenMin)
-    if redMin == None:
-        redMin = 1
-    if blueMin == None:
-        blueMin = 1
-    if greenMin == None:
-        greenMin = 1
-    return redMin * blueMin * greenMin
+            if greenMax == None:
+                greenMax = y
+            elif y > greenMax:
+                greenMax = y
+        
+    '''
+    for x in line:
+        print('this is x: ',x)
+        '''
+    '''
+    for x in line:
+                '''
+    print('redMax, blueMax, greenMax',redMax,blueMax, greenMax)
+    if redMax == None:
+        redMax = 1
+    if blueMax == None:
+        blueMax = 1
+    if greenMax == None:
+        greenMax = 1
+    return redMax * blueMax * greenMax
 
 for line in dataLines:
-    product = findMin(line)
+    product = findMax(line)
     result += product
 
 print('final result: ',result)
