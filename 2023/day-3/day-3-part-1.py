@@ -7,6 +7,11 @@ Part 1
 
 '''
 Strategy:
+
+    iterate over the line
+        grab digits by regex split by delimiters
+
+
     push whole input into a matrix array
         per character
     grab digits lumped together (numbers)
@@ -33,6 +38,7 @@ Strategy:
     note - numpy has diagonal if needed
 
 '''
+import re
 import numpy as np
 from io import BytesIO
 
@@ -41,8 +47,26 @@ from io import BytesIO
 myfile = open('../input/day-3-test-1')
 data = myfile.read()
 
-a = [row for row in data.split('\n')]
+dataArray = [row for row in data.split('\n')]
+
+for line in dataArray:
+    # get numbers
+    numbers = re.split("\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^",line)
+
+    # remove empty strings
+    numbers = [x for x in numbers if x]
+
+    print('numbers',numbers)
+
+
+
 #a = np.loadtxt(data)
 #a = np.genfromtxt(BytesIO(data.encode('utf-8')), dtype=np.int64)
-print('a: ',a)
+
+
+
+
+
+print('dataArray: ',dataArray)
+
 #print('a[2,2]: ',a[2,2])
