@@ -40,18 +40,19 @@ Strategy:
 '''
 import re
 import numpy as np
-from io import BytesIO
+#from io import BytesIO
 
 # load input
 #myfile = open('../input/day-3-input')
 myfile = open('../input/day-3-test-1')
 data = myfile.read()
+symbolRegex = r"\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^"
 
 dataArray = [row for row in data.split('\n')]
 
 for line in dataArray:
     # get numbers
-    numbers = re.split("\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^",line)
+    numbers = re.split(symbolRegex,line)
 
     # remove empty strings
     numbers = [x for x in numbers if x]
