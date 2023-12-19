@@ -8,6 +8,16 @@ Part 1
 '''
 Strategy:
 
+    function - check for symbol around index
+
+    iterate over the line left to right
+        if it is a digit
+            check if symbol in neighboring 7
+                if symbol store char in temp
+            if space to right
+                check seven around that digit
+                    add to temp
+
     iterate over the line
         grab digits by regex split by delimiters
 
@@ -47,10 +57,14 @@ import numpy as np
 myfile = open('../input/day-3-test-1')
 data = myfile.read()
 symbolRegex = r"\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^"
+'''
+def checkForSymbol(x):
+    if 
+'''
 
-dataArray = [row for row in data.split('\n')]
+arr = [row for row in data.split('\n')]
 
-for line in dataArray:
+for line in arr:
     # get numbers
     numbers = re.split(symbolRegex,line)
 
@@ -59,15 +73,9 @@ for line in dataArray:
 
     print('numbers',numbers)
 
-
-
 #a = np.loadtxt(data)
 #a = np.genfromtxt(BytesIO(data.encode('utf-8')), dtype=np.int64)
 
-
-
-
-
-print('dataArray: ',dataArray)
+print('arr: ',arr)
 
 #print('a[2,2]: ',a[2,2])
