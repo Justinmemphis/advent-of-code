@@ -57,12 +57,26 @@ import numpy as np
 myfile = open('../input/day-3-test-1')
 data = myfile.read()
 symbolRegex = r"\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^"
+
+#print(type(data)) == string
+lines = data.split('\n')
+print('lines: ',lines)
+
+arr = np.array([list(line) for line in lines], dtype='U')
+print('arr:')
+print(arr)
+print(type(arr))
+print(arr.shape)
+print(arr.dtype)
+#y_size, x_size = arr.shape
+#print('y_size: ',y_size)
+#print('x_size: ',x_size)
+
+
 '''
+arr = [row for row in data.split('\n')]
 def checkForSymbol(x):
     if 
-'''
-
-arr = [row for row in data.split('\n')]
 
 for line in arr:
     # get numbers
@@ -79,3 +93,4 @@ for line in arr:
 print('arr: ',arr)
 
 #print('a[2,2]: ',a[2,2])
+'''
