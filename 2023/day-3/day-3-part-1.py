@@ -62,7 +62,14 @@ symbolRegex = r"\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^"
 lines = data.split('\n')
 print('lines: ',lines)
 
-arr = np.array([list(line) for line in lines], dtype='U')
+#pad lines - only needed for last, blank line
+wid = max(len(w) for w in lines)
+arr = np.array([ list(w.center(wid)) for w in lines])
+
+#remove last unnecessary line
+arr = arr[:-1, :]
+
+
 print('arr:')
 print(arr)
 print(type(arr))
