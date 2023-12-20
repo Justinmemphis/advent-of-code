@@ -56,7 +56,7 @@ import numpy as np
 #myfile = open('../input/day-3-input')
 myfile = open('../input/day-3-test-1')
 data = myfile.read()
-symbolRegex = r"\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^"
+symbolRegex = r'\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^'
 
 #print(type(data)) == string
 lines = data.split('\n')
@@ -74,13 +74,35 @@ print('arr:')
 print(arr)
 print(type(arr))
 print(arr.shape)
-print(arr.dtype)
-#y_size, x_size = arr.shape
-#print('y_size: ',y_size)
-#print('x_size: ',x_size)
-
 
 '''
+work in progress - check eight sides around character to see if match symbol - if so return true
+def checkSides(x,y):
+    if x-1, y-1 = # match symbol regex
+        #return true
+    #check other seven conditions
+
+
+#print(arr.dtype)
+y_size, x_size = arr.shape
+print('y_size: ',y_size)
+print('x_size: ',x_size)
+
+
+#create empty boundary around array
+arr1 = np.empty((y_size + 2, x_size + 2))
+arr1[1:-1, 1:-1] = arr
+
+print('arr changed:')
+print(arr)
+
+
+y_max, x_max = y_size - 1, x_size - 1
+for (y, x), value in np.ndenumerate(arr):
+    if (y > 0 and x < x.max):
+
+
+
 arr = [row for row in data.split('\n')]
 def checkForSymbol(x):
     if 
