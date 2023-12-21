@@ -56,7 +56,7 @@ import numpy as np
 #myfile = open('../input/day-3-input')
 myfile = open('../input/day-3-test-1')
 data = myfile.read()
-symbolRegex = r'\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^'
+symb = r'\.|\*|\#|\+|\$|\/|\=|\&|\@|\!|\^'
 
 #print(type(data)) == string
 lines = data.split('\n')
@@ -75,7 +75,53 @@ print(arr)
 print(type(arr))
 print(arr.shape)
 
+nearSymb = []
+
+
+x_size, y_size = arr.shape
+x_max, y_max = x_size - 1, y_size - 1
+for (x, y), value in np.ndenumerate(arr):
+    if x > 0 and y < y_max:
+        if re.fullmatch(symb, arr[x - 1, y + 1]):
+            nearSymb.append((x,y))
+    if y < y_max:
+        if re.fullmatch(symb, arr[x    , y + 1]):
+            nearSymb.append((x,y))
+    if x < x_max and y < y_max:
+        if re.fullmatch(symb, arr[x + 1, y + 1]):
+            nearSymb.append((x,y))
+    if x > 0:
+        if re.fullmatch(symb, arr[x - 1, y    ]):
+            nearSymb.append((x,y))
+    if x < x_max:
+        if re.fullmatch(symb, arr[x + 1, y    ]):
+            nearSymb.append((x,y))
+    if x > 0 and y > 0:
+        if re.fullmatch(symb, arr[x - 1, y - 1]):
+            nearSymb.append((x,y))
+    if y > 0:
+        if re.fullmatch(symb, arr[x    , y - 1]):
+            nearSymb.append((x,y))
+    if x < x_max and y > 0:
+        if re.fullmatch(symb, arr[x + 1, y - 1]):
+            nearSymb.append((x,y))
+
+print('nearSymb: ',nearSymb)
+
 '''
+
+def symbolMatch(x,y):
+    if re.fullmatch(symbolRegex, arr[x,y]):
+        validDigitArray.append((x,y))
+        print('new validDigitArray: ',validDigitArray)
+    else:
+        print('no match')
+
+
+#symbolMatch(3,1)
+#symbolMatch(0,0)
+
+
 work in progress - check eight sides around character to see if match symbol - if so return true
 def checkSides(x,y):
     if x-1, y-1 = # match symbol regex
@@ -84,7 +130,6 @@ def checkSides(x,y):
 
 
 #print(arr.dtype)
-y_size, x_size = arr.shape
 print('y_size: ',y_size)
 print('x_size: ',x_size)
 
@@ -97,7 +142,6 @@ print('arr changed:')
 print(arr)
 
 
-y_max, x_max = y_size - 1, x_size - 1
 for (y, x), value in np.ndenumerate(arr):
     if (y > 0 and x < x.max):
 
